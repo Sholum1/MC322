@@ -8,9 +8,8 @@ public class ServicoPublico extends Propriedade{
     private int dados;
 
     public ServicoPublico(int preco, float aluguel, String nome,
-			  String proprietario, int dados) {
+			  String proprietario) {
 	super(preco, aluguel, nome, proprietario);
-	this.dados = dados;
     }
 
     // Randomiza o calculo do aluguel com base no número de dados
@@ -19,7 +18,8 @@ public class ServicoPublico extends Propriedade{
 	for(int i = 0; i < dados; i++) {
 	    aluguel += super.calcularAluguel() * Math.random();
 	}
-	return aluguel;
+	setAluguel(aluguel);
+	return calcularAluguel();
     }
 
     public void setDados(int dados) {

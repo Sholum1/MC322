@@ -31,7 +31,9 @@ public class Main {
 				       "jogador1", 0, 0,10000, true);
 
 	ServicoPublico servico1 = new ServicoPublico(2000, 300,
-						     "Servico1", "jogador2", 2);
+						     "Servico1", "jogador2");
+	servico1.calcularAluguel(3);
+
 	System.out.println(peca1.toString());
 	System.out.println("\n");
 	System.out.println(peca2.toString());
