@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Tabuleiro
+ * Tabuleiro: Classe responsável por simular um tabuleiro
  */
 public class Tabuleiro {
 
@@ -34,5 +34,15 @@ public class Tabuleiro {
     }
     public int getIndexPropriedade(int propriedade) {
 	return propriedades.indexOf(propriedade);
+    }
+
+    @Override
+    public String toString() {
+	String out = "";
+	for (int jogador : jogadores)
+	    out += "Jogador: "+jogador+"\n";
+	for (int propriedade : propriedades)
+	    out += "Propriedade: "+propriedade+"\n";
+	return out;
     }
 }

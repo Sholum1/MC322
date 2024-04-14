@@ -1,5 +1,6 @@
 /**
- * Terreno
+ * Terreno: classe filha das classe Propriedade, possui os mesmos
+ * paramentos, com adição de alguns.
  */
 public class Terreno extends Propriedade {
 
@@ -18,6 +19,7 @@ public class Terreno extends Propriedade {
 	    this.numeroCasas = numeroCasas;
     };
 
+    // Inicio dos getters e setters
     public int getNumeroCasas() {
 	return numeroCasas;
     }
@@ -45,6 +47,7 @@ public class Terreno extends Propriedade {
     public void setHotel(Boolean hotel) {
 	this.hotel = hotel;
     }
+    // Fim dos getters e setters
 
     // Como estamos simplesmente armazenando o nome do proprietário
     // é impossível, sem acesso a instância, subtrair dinheiro do comprador
@@ -61,8 +64,22 @@ public class Terreno extends Propriedade {
 	return false;
     }
 
+    // Imaginei valores para esse momento visto que
+    // Em um futuro lab esse código será refatorado
     @Override
     public int calcularAluguel() {
 	return super.calcularAluguel() + (hotel ? 700 : numeroCasas * 200);
+    }
+
+    @Override
+    public String toString() {
+	String out = "";
+	if (hotel) {
+	    out += "Valor Hotel: "+getValorHotel();
+	} else {
+	    out += "Número de Casas: "+getNumeroCasas()+"\n";
+	    out += "Valor Casa: "+getValorCasa();
+	}
+	return super.toString() + "\n" + out;
     }
 }

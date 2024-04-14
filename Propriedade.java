@@ -1,5 +1,6 @@
 /**
- * Propriedade
+ * Propriedade: Classe que serve de base para as diversas
+ * propriedades do jogo
  */
 public class Propriedade {
 
@@ -17,6 +18,7 @@ public class Propriedade {
 	id = count++;
     }
 
+    // Inicio dos getters e setters
     public int getId() {
 	return id;
     }
@@ -51,8 +53,19 @@ public class Propriedade {
     public void setProprietario(String proprietario) {
 	this.proprietario = proprietario;
     }
+    // FIm dos getters e setters
 
     public int calcularAluguel() {
 	return (int)aluguel;
+    }
+
+    @Override
+    public String toString() {
+	String out = "Preço: "+getPreco()+"\n";
+	out += "Aluguel: "+getAluguel()+"\n";
+	out += "Nome: "+getNome()+"\n";
+	out += "Proprietário: "+getProprietario()+"\n";
+	out += "Id: "+getId();
+	return out;
     }
 }

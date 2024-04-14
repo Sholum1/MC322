@@ -78,7 +78,7 @@ public class CartaSorte {
     // Transforma as informações da classe em uma unica String
     @Override
     public String toString() {
-	String out = "ID: "+getId()+"\n";
+	String out = "Id: "+getId()+"\n";
 	out += "Tempo: "+getTempo()+"\n";
 	out += "Efeito: "+getEfeito()+"\n";
 	out += "Tempo: "+getTempo()+"\n";
