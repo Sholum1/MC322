@@ -71,7 +71,7 @@ public class Main {
 			    tabuleiro.addJogador(jogador);
 			    count++;
 			    System.out.println("Certo, vamos continuar");
-			    infoCorretas = false;
+			    infoCorretas = true;
 			} else if (resp.equalsIgnoreCase("Não") || resp.equalsIgnoreCase("N")) {
 			    System.out.println("Por favor reinsira as informações");
 			    break;
@@ -96,5 +96,4 @@ public class Main {
 	// Fecha o scanner
 	scanner.close();
     }
-    Peca peca = new Peca("azul", 0);
 }
