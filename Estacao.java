@@ -5,9 +5,10 @@
 
 public class Estacao extends Propriedade {
 
-    public Estacao(int preco, float aluguel, String nome,
-		   String proprietario) {
-	super(preco, aluguel, nome, proprietario);
+    // Construtor da Classe Estacao
+    public Estacao(int id, String descricao, Jogador dono,
+		   int preco, float aluguel, String nome) {
+	super(id, descricao, dono, preco, aluguel, nome);
     }
 
     @Override
@@ -15,6 +16,7 @@ public class Estacao extends Propriedade {
 	return super.calcularAluguel();
     }
 
+    // Transforma as informações da classe em uma unica String
     @Override
     public String toString() {
 	return super.toString();

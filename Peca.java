@@ -1,8 +1,11 @@
+/** Peca: Classe responsável por determinar a cor e a posição atual da peça
+ * de um jogador
+ */
 public class Peca {
     String cor;
     int posicao;
 
-    // Construtor da Classe
+    // Construtor da Classe Peca
     public Peca(String cor, int posicao) {
 	this.cor = cor;
 	this.posicao = posicao;

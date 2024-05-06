@@ -2,30 +2,23 @@
  * Propriedade: Classe que serve de base para as diversas
  * propriedades do jogo
  */
-public class Propriedade {
+public class Propriedade extends Carta {
 
-    private int id, preco;
+    private int preco;
     private float aluguel;
-    private String nome, proprietario;
-    private static int count = 0;
+    private String nome;
 
-    public Propriedade(int preco, float aluguel, String nome,
-		       String proprietario) {
+    // Construtor da classe Propriedade
+    public Propriedade(int id, String descricao, Jogador dono,
+		       int preco, float aluguel, String nome) {
+
+	super(id, descricao, dono);
 	this.preco = preco;
 	this.aluguel = aluguel;
 	this.nome = nome;
-	this.proprietario = proprietario;
-	id = count++;
     }
 
     // Inicio dos getters e setters
-    public int getId() {
-	return id;
-    }
-    public void setId(int id) {
-	this.id = id;
-    }
-
     public int getPreco() {
 	return preco;
     }
@@ -46,26 +39,19 @@ public class Propriedade {
     public void setAluguel(float aluguel) {
 	this.aluguel = aluguel;
     }
+    // Fim dos getters e setters
 
-    public String getProprietario() {
-	return proprietario;
-    }
-    public void setProprietario(String proprietario) {
-	this.proprietario = proprietario;
-    }
-    // FIm dos getters e setters
-
+    // Calcula o aluguel da Propriedade
     public int calcularAluguel() {
 	return (int)aluguel;
     }
 
+    // Transforma as informações da propriedade em uma única String
     @Override
     public String toString() {
 	String out = "Preço: "+getPreco()+"\n";
 	out += "Aluguel: "+getAluguel()+"\n";
 	out += "Nome: "+getNome()+"\n";
-	out += "Proprietário: "+getProprietario()+"\n";
-	out += "Id: "+getId();
-	return out;
+	return super.toString()+"\n"+out;
     }
 }

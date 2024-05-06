@@ -3,34 +3,39 @@
  * mesmos parâmetros, mas o metodo para se calcular o aluguel
  * depende do resultado do rolamento de um número de dados
  */
-public class ServicoPublico extends Propriedade{
+public class ServicoPublico extends Propriedade {
 
     private int dados;
 
-    public ServicoPublico(int preco, float aluguel, String nome,
-			  String proprietario) {
-	super(preco, aluguel, nome, proprietario);
+    // Construtor da classe ServicoPublico
+    public ServicoPublico(int dados, int id, String descricao, Jogador dono,
+		       int preco, float aluguel, String nome) {
+	super(id, descricao, dono, preco, aluguel, nome);
+	this.dados = dados;
     }
 
     // Randomiza o calculo do aluguel com base no número de dados
     public int calcularAluguel(int dados) {
 	int aluguel = 0;
 	for(int i = 0; i < dados; i++) {
-	    aluguel += super.calcularAluguel() * Math.random();
+	    aluguel += Math.abs(super.calcularAluguel() * Math.random());
 	}
 	setAluguel(aluguel);
 	return calcularAluguel();
     }
 
+    // Inicio dos Getter e Setters
     public void setDados(int dados) {
 	this.dados = dados;
     }
     public int getDados() {
 	return dados;
     }
+    // Fim dos Getter e Setters
 
+    // Transforma as informações da Classe em uma String
     @Override
     public String toString() {
-	return super.toString();
+	return "Dados: "+getDados()+"\n"+super.toString();
     }
 }

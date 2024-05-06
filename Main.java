@@ -1,80 +1,99 @@
+import Validadores.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/** Main: Classe responsável por de fato rodar o jogo
+ */
 public class Main {
+    // Função que joga um erro caso o usuário insira uma opção inválida
+    private static void err() {
+	System.err.println("Opção inválida, por favor tente novamente");
+    }
+
     public static void main(String[] args) {
-	Peca peca1 = new Peca("azul", 2);
-	Peca peca2 = new Peca("preta", 0);
-
-	CartaSorte carta1 = new CartaSorte(10, 2, 3, 20, 23,
-					   "Uma das cartas já feitas",
-					   "Agir", "Restringir");
-	CartaSorte carta2 = new CartaSorte(5, 4, 10, 4, 422,
-					   "Outra carta", "Age",
-					   "Restringe");
-
-	// Exemplo que da certo (CPF e Email)
-	Jogador jogador1 = new Jogador("Jose", "109.343.270-50",
-				       "~/images/foto_jose.jpg",
-				       "jose123@gmail.com");
-
-	// Exemplo que da errado (CPF e Email)
-	Jogador jogador2 = new Jogador("Paula", "123.321.456-06",
-				       "~/images/foto_paula.jpg",
-				       "paula777@hotmailcom");
-
-	Propriedade propriedade1 = new Propriedade(1000, 100,
-						   "Propriedade1", "jogador1");
-
-	Estacao estacao1 = new Estacao(2000, 300, "Estacao1", "jogador1");
-
-	Terreno terreno1 = new Terreno(50000, 3000, "Terreno1",
-				       "jogador2", 2, 50000, 0, false);
-	Terreno terreno2 = new Terreno(30000, 6000, "Terreno2",
-				       "jogador1", 0, 0,10000, true);
-
-	ServicoPublico servico1 = new ServicoPublico(2000, 300,
-						     "Servico1", "jogador2");
-	servico1.calcularAluguel(3);
-
-	System.out.println(peca1.toString());
-	System.out.println("\n");
-	System.out.println(peca2.toString());
-	System.out.println("\n");
-	System.out.println(carta1.toString());
-	System.out.println("\n");
-	System.out.println(carta2.toString());
-	System.out.println("\n");
-	System.out.println(jogador1.toString());
-	System.out.println("\n");
-	System.out.println(jogador2.toString());
-	System.out.println("\n");
-	System.out.println(jogador1.validarCpf());
-	System.out.println(jogador1.validarEmail());
-	System.out.println("\n");
-	System.out.println(jogador2.validarCpf());
-	System.out.println(jogador2.validarEmail());
-	System.out.println("\n");
-	System.out.println(propriedade1.toString());
-	System.out.println("\n");
-	System.out.println(estacao1.toString());
-	System.out.println("\n");
-	System.out.println(terreno1.toString());
-	System.out.println("\n");
-	System.out.println(terreno2.toString());
-	System.out.println("\n");
-	System.out.println(servico1.toString());
-	System.out.println("\n");
-
-	Tabuleiro tabuleiro1 = new Tabuleiro();
-	tabuleiro1.addJogador(1);
-	tabuleiro1.addJogador(2);
-	tabuleiro1.addPropriedade(1);
-	tabuleiro1.addPropriedade(2);
-	tabuleiro1.addPropriedade(3);
-	tabuleiro1.addPropriedade(4);
-	tabuleiro1.addPropriedade(5);
-	System.out.println(tabuleiro1.toString());
-
-	tabuleiro1.removePropriedade(2);
-	tabuleiro1.addPropriedade(6);
-	System.out.println(tabuleiro1.toString());
+	// Booleano que mede se o usuário ainda está em jogo
+	Boolean jogando = true;
+	Scanner scanner = new Scanner(System.in);
+	// Loop para quando o jogo ainda estiver acontecendo
+	while (jogando) {
+	    System.out.println("Deseja iniciar um novo jogo? [Sim/Não]");
+	    // Confere se o usuário que iniciar um novo jogo
+	    String jogar = scanner.nextLine();
+	    // Caso sim, inicie
+	    if (jogar.equalsIgnoreCase("Sim") || jogar.equalsIgnoreCase("S")) {
+		Tabuleiro tabuleiro = new Tabuleiro
+		    (new ArrayList<Jogador>(),
+		     new ArrayList<Propriedade>());
+		System.out.println("Certo! Vamos lá:");
+		// Captura as informações para o jogo
+		System.out.println("Entre com o número de jogadores:");
+		int nJogadores = scanner.nextInt();
+		scanner.nextLine();
+		int count = 0;
+		while(count < nJogadores) {
+		    System.out.println("Digite o nome do jogador: ");
+		    String nome = scanner.nextLine();
+		    System.out.println("Digite o CPF do jogador "+nome+": ");
+		    String cpf = scanner.nextLine();
+		    // Válida o CPF
+		    if(!ValidaCPF.validarCpf(cpf)) {
+			System.err.println("CPF inválido, por favor "+
+					   "tente novamente:");
+			continue;
+		    }
+		    System.out.println("Adicione uma foto do jogador "+nome+
+				       ": ");
+		    String foto = scanner.nextLine();
+		    System.out.println("Adicione o email do jogador "+nome+
+				       ": ");
+		    // Válida o email
+		    String email = scanner.nextLine();
+		    if(!ValidaEmail.validarEmail(email)) {
+			System.err.println("Email inválido, por favor "+
+					   "tente novamente:");
+			continue;
+		    }
+		    System.out.println("Adicione a cor da peça do jogador "
+				       +nome+": ");
+		    String cor = scanner.nextLine();
+		    // Cria a peça na posição inicial
+		    Peca peca = new Peca(cor, 0);
+		    // Cria o jogador
+		    Jogador jogador = new Jogador(nome, cpf, foto, email, peca,
+						  new ArrayList<Carta>());
+		    System.out.println(jogador);
+		    // Confere se as informações do jogador estão corretas
+		    boolean infoCorretas = false;
+		    while(!infoCorretas) {
+			System.out.println("As informações estão corretas? [Sim/Não]");
+			String resp = scanner.nextLine();
+			if (resp.equalsIgnoreCase("Sim") || resp.equalsIgnoreCase("S")) {
+			    tabuleiro.addJogador(jogador);
+			    count++;
+			    System.out.println("Certo, vamos continuar");
+			    infoCorretas = false;
+			} else if (resp.equalsIgnoreCase("Não") || resp.equalsIgnoreCase("N")) {
+			    System.out.println("Por favor reinsira as informações");
+			    break;
+			} else {
+			    err();
+			}
+		    }
+		}
+		// Inicia o jogo
+		// Busco mais a frente de fato iniciar algo jogável, onde as
+		// peças são movidas e regras do Monopoly são seguidas
+		System.out.println(tabuleiro);
+	    // Se o usuário não quiser jogar, termine a sessão
+	    } else if (jogar.equalsIgnoreCase("Não") || jogar.equalsIgnoreCase("N")) {
+		System.out.println("Fim!");
+		jogando = false;
+		break;
+	    } else {
+		err();
+	    }
+	}
+	// Fecha o scanner
+	scanner.close();
     }
 }

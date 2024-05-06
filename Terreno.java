@@ -4,19 +4,22 @@
  */
 public class Terreno extends Propriedade {
 
-    private int numeroCasas = 0, valorCasa = 0, valorHotel = 0;
+    private int numeroCasas = 0, valorCasa, valorHotel;
     private Boolean hotel;
 
-    public Terreno(int preco, float aluguel, String nome,
-		   String proprietario, int numeroCasas,
-		   int valorCasa, int valorHotel, Boolean hotel) {
-	super(preco, aluguel, nome, proprietario);
+    public Terreno(int id, String descricao, Jogador dono,
+		   int preco, float aluguel, String nome,
+		   int valorCasa, int valorHotel, Boolean hotel,
+		   int numeroCasas) {
+	super(id, descricao, dono, preco, aluguel, nome);
 	this.hotel = hotel;
 	if(hotel) {
 	    this.valorHotel = valorHotel;
+	    this.valorCasa = 0;
 	} else
 	    this.valorCasa = valorCasa;
 	    this.numeroCasas = numeroCasas;
+	    this.valorHotel = 0;
     };
 
     // Inicio dos getters e setters

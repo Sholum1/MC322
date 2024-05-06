@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import Validadores.*;
 
 /**
@@ -8,18 +9,37 @@ public class Jogador {
     private String nome, cpf, foto, email;
     private int dinheiro, id;
     private static int count = 0;
+    Peca peca;
+    ArrayList<Carta> cartas;
 
-    // Construtor da Classe
-    public Jogador(String nome, String cpf, String foto, String email) {
+    // Construtor da Classe Jogador
+    public Jogador(String nome, String cpf, String foto, String email,
+		   Peca peca, ArrayList<Carta> cartas) {
 	this.nome = nome;
 	this.cpf = cpf;
 	this.foto = foto;
 	this.email = email;
 	this.dinheiro = 2000;
+	this.peca = peca;
+	this.cartas = cartas;
 	this.id = count++;
     }
 
     // Inicio dos Getter e Setters
+    public Peca getPeca() {
+	return peca;
+    }
+    public void setPeca(Peca peca) {
+	this.peca = peca;
+    }
+
+    public ArrayList<Carta> getCartas() {
+	return cartas;
+    }
+    public void setCartas(ArrayList<Carta> cartas) {
+	this.cartas = cartas;
+    }
+
     public String getNome() {
 	return nome;
     }
@@ -70,6 +90,15 @@ public class Jogador {
     public boolean validarEmail() {
 	return ValidaEmail.validarEmail(email);
     }
+    // Fim dos validadores
+
+    // Adicionar e remover cartas
+    public Boolean addCarta(Carta carta) {
+	return cartas.add(carta);
+    }
+    public Boolean removeCarta(Carta carta) {
+	return cartas.remove(carta);
+    }
 
     // Transforma as informações da Classe em uma String
     @Override
@@ -78,7 +107,14 @@ public class Jogador {
 	out += "CPF: "+getCpf()+"\n";
 	out += "Foto: "+getFoto()+"\n";
 	out += "Email: "+getEmail()+"\n";
-	out += "Id: "+getId();
+	out += "Id: "+getId()+"\n";
+	out += "Peca:\n"+"  Cor: "+getPeca().getCor()+",\n"+"  Posicao: "
+	    +getPeca().getPosicao()+"\n";
+	out += "Cartas: ";
+	// Devolve a descrição de cada carta
+	for (int i = 0; i < cartas.size(); i++)
+	    out += cartas.get(i).descricao+((i + 1 < cartas.size())
+					    ? ", " : " ");
 	return out;
     }
 }
