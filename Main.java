@@ -96,4 +96,5 @@ public class Main {
 	// Fecha o scanner
 	scanner.close();
     }
+    Peca peca = new Peca("azul", 0);
 }
