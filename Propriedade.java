@@ -7,12 +7,12 @@ public class Propriedade extends Carta {
     private int preco;
     private float aluguel;
     private String nome;
+    private Jogador dono = null;
 
     // Construtor da classe Propriedade
-    public Propriedade(int id, String descricao, Jogador dono,
-		       int preco, float aluguel, String nome) {
-
-	super(id, descricao, dono);
+    public Propriedade(int id, String descricao, int preco,
+		       float aluguel, String nome) {
+	super(id, descricao, (float)preco);
 	this.preco = preco;
 	this.aluguel = aluguel;
 	this.nome = nome;
@@ -39,11 +39,18 @@ public class Propriedade extends Carta {
     public void setAluguel(float aluguel) {
 	this.aluguel = aluguel;
     }
+
+    public Jogador getDono() {
+	return dono;
+    }
+    public void setDono(Jogador dono) {
+	this.dono = dono;
+    }
     // Fim dos getters e setters
 
     // Calcula o aluguel da Propriedade
     public int calcularAluguel() {
-	return (int)aluguel;
+	return (int)Math.round(aluguel);
     }
 
     // Transforma as informações da propriedade em uma única String
@@ -52,6 +59,7 @@ public class Propriedade extends Carta {
 	String out = "Preço: "+getPreco()+"\n";
 	out += "Aluguel: "+getAluguel()+"\n";
 	out += "Nome: "+getNome()+"\n";
+	out += "Dono: "+getDono()+"\n";
 	return super.toString()+"\n"+out;
     }
 }

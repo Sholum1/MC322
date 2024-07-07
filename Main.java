@@ -1,6 +1,7 @@
 import Validadores.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 /** Main: Classe responsável por de fato rodar o jogo
  */

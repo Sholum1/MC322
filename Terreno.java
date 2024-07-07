@@ -8,18 +8,13 @@ public class Terreno extends Propriedade {
     private Boolean hotel;
 
     public Terreno(int id, String descricao, Jogador dono,
-		   int preco, float aluguel, String nome,
+		   float aluguel, String nome,
 		   int valorCasa, int valorHotel, Boolean hotel,
 		   int numeroCasas) {
-	super(id, descricao, dono, preco, aluguel, nome);
+	super(id, descricao, valorCasa, aluguel, nome);
 	this.hotel = hotel;
-	if(hotel) {
-	    this.valorHotel = valorHotel;
-	    this.valorCasa = 0;
-	} else
-	    this.valorCasa = valorCasa;
-	    this.numeroCasas = numeroCasas;
-	    this.valorHotel = 0;
+	this.valorHotel = valorHotel;
+	this.valorCasa = valorCasa;
     };
 
     // Inicio dos getters e setters
@@ -52,26 +47,48 @@ public class Terreno extends Propriedade {
     }
     // Fim dos getters e setters
 
-    // Como estamos simplesmente armazenando o nome do proprietário
-    // é impossível, sem acesso a instância, subtrair dinheiro do comprador
     public Boolean comprarCasa() {
-	if(!hotel && numeroCasas < 5) {
-	    numeroCasas++;
-	    return true;
+	if(!hotel) {
+	    if(numeroCasas < 3) {
+		try {
+		    executaAcao(this.getDono());
+		} catch (Exception e) {
+		    System.err.println(e.getMessage());
+		    return false;
+		}
+		numeroCasas++;
+		System.out.println("Jogador "+getDono().getNome()+
+				   " construiu uma casa no terreno "+getNome()+
+				   ", totalizando"+numeroCasas+" casas\n");
+		return true;
+	    } else {
+		this.setHotel(true);
+		this.setValor(this.getValorHotel());
+		this.comprarHotel();
+	    }
 	}
 	return false;
     }
 
     public Boolean comprarHotel() {
-	if(hotel && numeroCasas == 0) return true;
+	if(hotel && numeroCasas == 3) {
+	    try {
+		executaAcao(this.getDono());
+	    } catch (Exception e) {
+		System.err.println(e.getMessage());
+		return false;
+	    }
+	    System.out.println("Jogador "+getDono().getNome()+
+			       " construiu um hotel no terreno "+getNome()+
+			       "\n");
+	    return true;
+	}
 	return false;
     }
 
-    // Imaginei valores para esse momento visto que
-    // Em um futuro lab esse código será refatorado
     @Override
     public int calcularAluguel() {
-	return super.calcularAluguel() + (hotel ? 700 : numeroCasas * 200);
+	return hotel ? 100000 : numeroCasas * 20000;
     }
 
     @Override

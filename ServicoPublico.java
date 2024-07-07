@@ -1,7 +1,7 @@
 /**
  * ServicoPublico: Classe filha da classe Propriedade, possui os
  * mesmos parâmetros, mas o metodo para se calcular o aluguel
- * depende do resultado do rolamento de um número de dados
+ * depende do resultado do rolamento dos dados
  */
 public class ServicoPublico extends Propriedade {
 
@@ -9,19 +9,14 @@ public class ServicoPublico extends Propriedade {
 
     // Construtor da classe ServicoPublico
     public ServicoPublico(int dados, int id, String descricao, Jogador dono,
-		       int preco, float aluguel, String nome) {
-	super(id, descricao, dono, preco, aluguel, nome);
+			  int preco, float aluguel, String nome) {
+	super(id, descricao, preco, aluguel, nome);
 	this.dados = dados;
     }
 
     // Randomiza o calculo do aluguel com base no número de dados
     public int calcularAluguel(int dados) {
-	int aluguel = 0;
-	for(int i = 0; i < dados; i++) {
-	    aluguel += Math.abs(super.calcularAluguel() * Math.random());
-	}
-	setAluguel(aluguel);
-	return calcularAluguel();
+	return dados * super.calcularAluguel();
     }
 
     // Inicio dos Getter e Setters

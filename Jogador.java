@@ -5,12 +5,11 @@ import Validadores.*;
  * Jogador: Classe responsável por construir instâncias de jogadores
  */
 public class Jogador {
-
     private String nome, cpf, foto, email;
     private int dinheiro, id;
     private static int count = 0;
-    Peca peca;
-    ArrayList<Carta> cartas;
+    private final Peca peca;
+    private ArrayList<Carta> cartas;
 
     // Construtor da Classe Jogador
     public Jogador(String nome, String cpf, String foto, String email,
@@ -19,7 +18,7 @@ public class Jogador {
 	this.cpf = cpf;
 	this.foto = foto;
 	this.email = email;
-	this.dinheiro = 2000;
+	this.dinheiro = 2558000;
 	this.peca = peca;
 	this.cartas = cartas;
 	this.id = count++;
@@ -28,9 +27,6 @@ public class Jogador {
     // Inicio dos Getter e Setters
     public Peca getPeca() {
 	return peca;
-    }
-    public void setPeca(Peca peca) {
-	this.peca = peca;
     }
 
     public ArrayList<Carta> getCartas() {
@@ -108,12 +104,11 @@ public class Jogador {
 	out += "Foto: "+getFoto()+"\n";
 	out += "Email: "+getEmail()+"\n";
 	out += "Id: "+getId()+"\n";
-	out += "Peca:\n"+"  Cor: "+getPeca().getCor()+",\n"+"  Posicao: "
-	    +getPeca().getPosicao()+"\n";
+	out += this.getPeca().toString();
 	out += "Cartas: ";
 	// Devolve a descrição de cada carta
 	for (int i = 0; i < cartas.size(); i++)
-	    out += cartas.get(i).descricao+((i + 1 < cartas.size())
+	    out += cartas.get(i).getDescricao()+((i + 1 < cartas.size())
 					    ? ", " : " ");
 	return out;
     }

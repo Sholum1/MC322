@@ -2,20 +2,17 @@
  * jogo Monopoly
  */
 public class CartaSorte extends Carta {
-    int movimento, efeito, tempo;
-    float valor;
-    String acao, restricao;
+    private int movimento, efeito, tempo;
+    private String acao, restricao;
 
     // Construtor da classe CartaSorte
     public CartaSorte(int id, int movimento, int efeito, int tempo, float valor,
 		      String descricao, String acao, String restricao,
-		      Jogador dono) {
-
-	super(id, descricao, dono);
+		      TipoCarta tipo) {
+	super(id, descricao, valor, tipo);
 	this.movimento = movimento;
 	this.efeito = efeito;
 	this.tempo = tempo;
-	this.valor = valor;
 	this.acao = acao;
 	this.restricao = restricao;
     }
@@ -42,13 +39,6 @@ public class CartaSorte extends Carta {
 	this.tempo = tempo;
     }
 
-    public float getValor() {
-	return valor;
-    }
-    public void setValor(float valor) {
-	this.valor = valor;
-    }
-
     public String getAcao() {
 	return acao;
     }
@@ -71,7 +61,6 @@ public class CartaSorte extends Carta {
 	String out = "Tempo: "+getTempo()+"\n";
 	out += "Efeito: "+getEfeito()+"\n";
 	out += "Tempo: "+getTempo()+"\n";
-	out += "Valor: "+getValor()+"\n";
 	out += "Acao: "+getAcao()+"\n";
 	out += "Restricao: "+getRestricao();
 	return super.toString()+"\n"+out;

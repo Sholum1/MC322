@@ -2,13 +2,15 @@
  * de um jogador
  */
 public class Peca {
-    String cor;
-    int posicao;
+    private String cor;
+    private int posicaoAtual;
+    private Jogador dono;
 
     // Construtor da Classe Peca
-    public Peca(String cor, int posicao) {
+    public Peca(String cor, int posicaoAtual, Jogador dono) {
 	this.cor = cor;
-	this.posicao = posicao;
+	this.posicaoAtual = posicaoAtual;
+	this.dono = dono;
     }
 
     // Inicio dos Getter e Setters
@@ -19,11 +21,26 @@ public class Peca {
 	this.cor = cor;
     }
 
-    public int getPosicao() {
-	return posicao;
+    public int getPosicaoAtual() {
+	return posicaoAtual;
     }
-    public void setPosicao(int posicao) {
-	this.posicao = posicao;
+    public void setPosicaoAtual(int posicaoAtual) {
+	this.posicaoAtual = posicaoAtual;
+    }
+
+    public Jogador getDono() {
+	return dono;
+    }
+    public void setDono(Jogador dono) {
+	this.dono = dono;
+    }
+
+    public void move(int dados) {
+	this.setPosicaoAtual((this.getPosicaoAtual()+dados)%40);
+	// Recebimento do salário ao dar a volta no mapa
+	if(this.getPosicaoAtual() < dados) {
+	    this.getDono().setDinheiro(this.getDono().getDinheiro() + 200000);
+	}
     }
     // Fim dos Getter e Setters
 
@@ -31,7 +48,7 @@ public class Peca {
     @Override
     public String toString() {
 	String out = "cor: "+getCor()+"\n";
-	out += "posicao: "+getPosicao();
+	out += "posicao atual: "+getPosicaoAtual();
 	return out;
     }
 }

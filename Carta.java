@@ -2,15 +2,43 @@
  * Carta: Classe mãe de todas as classes que são cartas no jogo Monopoly
  */
 public class Carta {
-    int id;
-    String descricao;
-    Jogador dono;
+    public class RecursoInsuficienteException extends Exception {
+	public RecursoInsuficienteException(Jogador jogador, Carta carta) {
+	    super(mensgaem(jogador, carta));
+	}
+
+	private static String mensgaem(Jogador jogador, Carta carta) {
+	    String out = "O Jogador "+jogador.getNome()+" não possui dinheiro o"+
+		" suficiente para pagar";
+	    if (carta instanceof CartaSorte) {
+		String tipo = carta.getTipo().name();
+		out += "pela Carta do tipo "+(tipo.charAt(1) + tipo.substring(1)
+					     .toLowerCase());
+	    } else if (carta instanceof Propriedade) {
+		out += "pela Propriedade "+((Propriedade)carta).getNome();
+	    }
+	    return out+"\n";
+	}
+    }
+
+    protected enum TipoCarta {
+	SORTE, REVES;
+    }
+    private int id;
+    protected float valor;
+    private String descricao;
+    private TipoCarta tipo;
 
     // Construtor da Classe Carta
-    public Carta(int id, String descricao, Jogador dono) {
+    public Carta(int id, String descricao, float valor) {
 	this.id = id;
 	this.descricao = descricao;
-	this.dono = dono;
+	this.valor = valor;
+    }
+
+    public Carta(int id, String descricao, float valor, TipoCarta tipo) {
+	this(id, descricao, valor);
+	this.tipo = tipo;
     }
 
     // Inicio dos Getters e Setters
@@ -21,18 +49,36 @@ public class Carta {
 	this.id = id;
     }
 
-    public Jogador getDono() {
-	return dono;
-    }
-    public void setDono(Jogador dono) {
-	this.dono = dono;
-    }
-
     public String getDescricao() {
 	return descricao;
     }
     public void setDescricao(String descricao) {
 	this.descricao = descricao;
+    }
+
+    public TipoCarta getTipo() {
+	return tipo;
+    }
+    public void setTipo(TipoCarta tipo) {
+	this.tipo = tipo;
+    }
+
+    public float getValor() {
+	return valor;
+    }
+    public void setValor(float valor) {
+	this.valor = valor;
+    }
+
+    protected void executaAcao(Jogador jogador)
+	throws RecursoInsuficienteException{
+	int dinheiro = jogador.getDinheiro(),
+	    valor = (int)Math.round(this.getValor());
+	if (dinheiro < valor) {
+	    throw new RecursoInsuficienteException(jogador, this);
+	} else {
+	    jogador.setDinheiro(dinheiro - valor);
+	}
     }
     // Fim dos Getters e Setters
 
@@ -40,8 +86,10 @@ public class Carta {
     @Override
     public String toString() {
 	String out = "Id: "+getId()+"\n";
+	out += "Tipo: "+getTipo()+"\n";
 	out += "Descricao: "+getDescricao()+"\n";
-	out += "Dono: "+getDono().getNome();
+	out += "Valor: " +getValor();
 	return out;
     }
 }
+
