@@ -5,14 +5,12 @@
 public class Terreno extends Propriedade {
 
     private int numeroCasas = 0, valorCasa, valorHotel;
-    private Boolean hotel;
+    private Boolean hotel = false;
 
-    public Terreno(int id, String descricao, Jogador dono,
+    public Terreno(int id, String descricao, int preco,
 		   float aluguel, String nome,
-		   int valorCasa, int valorHotel, Boolean hotel,
-		   int numeroCasas) {
-	super(id, descricao, valorCasa, aluguel, nome);
-	this.hotel = hotel;
+		   int valorCasa, int valorHotel) {
+	super(id, descricao, preco, aluguel, nome);
 	this.valorHotel = valorHotel;
 	this.valorCasa = valorCasa;
     };
@@ -88,7 +86,8 @@ public class Terreno extends Propriedade {
 
     @Override
     public int calcularAluguel() {
-	return hotel ? 100000 : numeroCasas * 20000;
+	int aluguel = (int)Math.round(this.getAluguel());
+	return hotel ? 6*aluguel : numeroCasas * aluguel;
     }
 
     @Override

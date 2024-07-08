@@ -104,7 +104,7 @@ public class Jogador {
 	out += "Foto: "+getFoto()+"\n";
 	out += "Email: "+getEmail()+"\n";
 	out += "Id: "+getId()+"\n";
-	out += this.getPeca().toString();
+	out += this.getPeca().toString() +"\n";
 	out += "Cartas: ";
 	// Devolve a descrição de cada carta
 	for (int i = 0; i < cartas.size(); i++)

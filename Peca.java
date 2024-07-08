@@ -7,9 +7,12 @@ public class Peca {
     private Jogador dono;
 
     // Construtor da Classe Peca
-    public Peca(String cor, int posicaoAtual, Jogador dono) {
+    public Peca(String cor, int posicaoAtual) {
 	this.cor = cor;
 	this.posicaoAtual = posicaoAtual;
+    }
+    public Peca(String cor, int posicaoAtual, Jogador dono) {
+	this(cor, posicaoAtual);
 	this.dono = dono;
     }
 
@@ -36,9 +39,9 @@ public class Peca {
     }
 
     public void move(int dados) {
-	this.setPosicaoAtual((this.getPosicaoAtual()+dados)%40);
+	this.setPosicaoAtual((this.getPosicaoAtual()+dados)%25);
 	// Recebimento do salário ao dar a volta no mapa
-	if(this.getPosicaoAtual() < dados) {
+	if (this.getPosicaoAtual() < dados) {
 	    this.getDono().setDinheiro(this.getDono().getDinheiro() + 200000);
 	}
     }

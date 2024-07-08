@@ -12,8 +12,7 @@ public class Tabuleiro implements Salvavel{
 
     // Construtor da classe Tabuleiro
     public Tabuleiro(ArrayList<Jogador> jogadores,
-		     ArrayList<Propriedade> propriedades,
-		     Stack<CartaSorte> cartasSorte) {
+		     ArrayList<Propriedade> propriedades) {
 	this.jogadores = jogadores;
 	this.propriedades = propriedades;
     }
@@ -116,6 +115,13 @@ public class Tabuleiro implements Salvavel{
     public void setPropriedades(ArrayList<Propriedade> propriedades) {
 	this.propriedades = propriedades;
     }
+
+    public void setCartasSorte(Stack<CartaSorte> cartasSorte) {
+	this.cartasSorte = cartasSorte;
+    }
+    public Stack<CartaSorte> getCartasSorte() {
+	return cartasSorte;
+    }
     // Fim dos Getters e Setters
 
     // Transforma as informações da classe Tabuleiro em uma única String
@@ -128,8 +134,10 @@ public class Tabuleiro implements Salvavel{
 	}
 	out += "Propriedades:\n";
 	for (int i = 0; i < propriedades.size(); i++) {
-	    out += "\tNome: "+propriedades.get(i).getNome()+
-		((i + 1 < propriedades.size()) ? "\n" : "");
+	    Propriedade prop = propriedades.get(i);
+	    if (prop != null)
+	    out += "\tNome: "+prop.getNome()+((i + 1 < propriedades.size())
+					      ? "\n" : "");
 	}
 	return out;
     }

@@ -20,10 +20,6 @@ public class Carta {
 	    return out+"\n";
 	}
     }
-
-    protected enum TipoCarta {
-	SORTE, REVES;
-    }
     private int id;
     protected float valor;
     private String descricao;
