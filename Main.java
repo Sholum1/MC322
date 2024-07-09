@@ -323,13 +323,22 @@ public class Main {
 	return pilhaCartaSorte;
     }
 
-    public static void printSalva(Tabuleiro tabuleiro, String mensagem,
+    private static void printSalva(Tabuleiro tabuleiro, String mensagem,
 				  int jogadas) {
 	System.out.println(mensagem);
 	tabuleiro.salvaLog(mensagem, jogadas);
     }
 
-    public static void pagarAluguel (Propriedade propriedade, Tabuleiro
+    private static void removeJogador(Jogador jogador, Tabuleiro tabuleiro) {
+	for (Carta carta : jogador.getCartas()) {
+	    Propriedade propriedade = (Propriedade)carta;
+	    propriedade.setDono(null);
+	}
+	tabuleiro.getJogadores().remove(jogador);
+	
+    }
+
+    private static void pagarAluguel (Propriedade propriedade, Tabuleiro
 				     tabuleiro, int jogadas, Jogador jogador) {
 	String out;
 	Jogador dono = propriedade.getDono();
@@ -343,7 +352,7 @@ public class Main {
 		" faliu e foi removido do jogo";
 	    printSalva(tabuleiro, out, jogadas);
 	    dono.setDinheiro(dono.getDinheiro()+jogador.getDinheiro());
-	    tabuleiro.getJogadores().remove(jogador);
+	    removeJogador(jogador, tabuleiro);
 	} else {
 	    jogador.setDinheiro(jogador.getDinheiro() - aluguel);
 	    dono.setDinheiro(dono.getDinheiro()+aluguel);
@@ -419,7 +428,7 @@ public class Main {
 		executaCartaSorte(jogador, carta, tabuleiro, jogadas);;
 	    } catch (RecursoInsuficienteException e) {
 		printSalva(tabuleiro, e.getMessage(), jogadas);
-		tabuleiro.removeJogador(jogador);
+		removeJogador(jogador, tabuleiro);
 	    }
 	    tabuleiro.getCartasSorte().push(carta);
 	    Collections.shuffle(tabuleiro.getCartasSorte());
