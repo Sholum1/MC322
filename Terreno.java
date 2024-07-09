@@ -4,7 +4,7 @@
  */
 public class Terreno extends Propriedade {
 
-    private int numeroCasas = 0, valorCasa, valorHotel;
+    private int numeroCasas = 1, valorCasa, valorHotel;
     private Boolean hotel = false;
 
     public Terreno(int id, String descricao, int preco,
@@ -45,40 +45,44 @@ public class Terreno extends Propriedade {
     }
     // Fim dos getters e setters
 
-    public Boolean comprarCasa() {
+    public Boolean comprarCasa(Tabuleiro tabuleiro, int jogadas) {
 	if(!hotel) {
-	    if(numeroCasas < 3) {
+	    if(numeroCasas < 4) {
 		try {
 		    executaAcao(this.getDono());
-		} catch (Exception e) {
+		} catch (RecursoInsuficienteException e) {
 		    System.err.println(e.getMessage());
+		    tabuleiro.salvaLog(e.getMessage(), jogadas);
 		    return false;
 		}
 		numeroCasas++;
-		System.out.println("Jogador "+getDono().getNome()+
-				   " construiu uma casa no terreno "+getNome()+
-				   ", totalizando"+numeroCasas+" casas\n");
+		String out = "Jogador "+getDono().getNome()+
+		    " construiu uma casa no terreno "+getNome()+
+		    ", totalizando"+numeroCasas+" casas";
+		System.out.println(out);
+		tabuleiro.salvaLog(out, jogadas);
 		return true;
 	    } else {
-		this.setHotel(true);
 		this.setValor(this.getValorHotel());
-		this.comprarHotel();
 	    }
 	}
 	return false;
     }
 
-    public Boolean comprarHotel() {
-	if(hotel && numeroCasas == 3) {
+    public Boolean comprarHotel(Tabuleiro tabuleiro, int jogadas) {
+	if(hotel && numeroCasas == 4) {
 	    try {
 		executaAcao(this.getDono());
-	    } catch (Exception e) {
+	    } catch (RecursoInsuficienteException e) {
 		System.err.println(e.getMessage());
+		tabuleiro.salvaLog(e.getMessage(), jogadas);
 		return false;
 	    }
-	    System.out.println("Jogador "+getDono().getNome()+
-			       " construiu um hotel no terreno "+getNome()+
-			       "\n");
+	    this.setHotel(true);
+	    String out = "Jogador "+getDono().getNome()+
+		" construiu um hotel no terreno "+getNome();
+	    System.out.println(out);
+	    tabuleiro.salvaLog(out, jogadas);
 	    return true;
 	}
 	return false;

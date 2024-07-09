@@ -6,7 +6,7 @@ import Validadores.*;
  */
 public class Jogador {
     private String nome, cpf, foto, email;
-    private int dinheiro, id;
+    private int dinheiro, id, preso = 0;
     private static int count = 0;
     private final Peca peca;
     private ArrayList<Carta> cartas;
@@ -25,6 +25,13 @@ public class Jogador {
     }
 
     // Inicio dos Getter e Setters
+    public int getPreso() {
+	return preso;
+    }
+    public void setPreso(int preso) {
+	this.preso = preso;
+    }
+
     public Peca getPeca() {
 	return peca;
     }

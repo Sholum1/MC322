@@ -48,36 +48,6 @@ public class Tabuleiro implements Salvavel{
 	return cartasSorte.indexOf(cartaSorte);
     }
 
-    // Comprar uma propriedade
-    public boolean compraPropriedade(Jogador jogador) {
-	int pos = jogador.getPeca().getPosicaoAtual();
-	Propriedade prop = propriedades.get(pos);
-	if (prop instanceof Terreno) {
-	    Terreno terr = (Terreno)prop;
-	    if (terr.getDono().equals(jogador)) return terr.comprarCasa();
-	}
-	if (prop instanceof Propriedade) {
-	    if (prop.getDono() == null) {
-		try {
-		    prop.executaAcao(jogador);
-		} catch (Exception e) {
-		    System.out.println(e.getMessage());
-		    return false;
-		}
-		System.out.printf("O Jogador "+jogador.getNome()+" comprou "
-				  +prop.getNome()+" por $%.2f\n", prop.getValor());
-		prop.setDono(jogador);
-		jogador.addCarta(prop);
-		return true;
-	    }
-	    System.out.println("O Jogador "+prop.getDono().getNome()+
-			       " já é dono desta Propriedade\n");
-	    return false;
-	}
-	System.out.println("A casa de número "+pos+" não é uma Propriedade\n");
-	return false;
-    }
-
     // Distribui as cartas
     public boolean distribuiCartas(Jogador jogador) {
 	int pos = jogador.getPeca().getPosicaoAtual();
@@ -90,7 +60,7 @@ public class Tabuleiro implements Salvavel{
 	    if (efeito == 0) {
 		System.out.println("O Jogador "+jogador.getNome()+
 				   " foi para a prisão por "+carta.getTempo()
-				   +" turnos\n");
+				   +" turnos");
 		return true;
 	    }
 	    jogador.setDinheiro(dinheiro + efeito*valor );

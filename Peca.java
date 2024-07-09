@@ -39,9 +39,9 @@ public class Peca {
     }
 
     public void move(int dados) {
-	this.setPosicaoAtual((this.getPosicaoAtual()+dados)%25);
+	this.setPosicaoAtual((this.getPosicaoAtual()+dados)%40);
 	// Recebimento do salário ao dar a volta no mapa
-	if (this.getPosicaoAtual() < dados) {
+	if (this.getPosicaoAtual() < dados && dados > 0) {
 	    this.getDono().setDinheiro(this.getDono().getDinheiro() + 200000);
 	}
     }

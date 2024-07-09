@@ -2,24 +2,6 @@
  * Carta: Classe mãe de todas as classes que são cartas no jogo Monopoly
  */
 public class Carta {
-    public class RecursoInsuficienteException extends Exception {
-	public RecursoInsuficienteException(Jogador jogador, Carta carta) {
-	    super(mensgaem(jogador, carta));
-	}
-
-	private static String mensgaem(Jogador jogador, Carta carta) {
-	    String out = "O Jogador "+jogador.getNome()+" não possui dinheiro o"+
-		" suficiente para pagar";
-	    if (carta instanceof CartaSorte) {
-		String tipo = carta.getTipo().name();
-		out += "pela Carta do tipo "+(tipo.charAt(1) + tipo.substring(1)
-					     .toLowerCase());
-	    } else if (carta instanceof Propriedade) {
-		out += "pela Propriedade "+((Propriedade)carta).getNome();
-	    }
-	    return out+"\n";
-	}
-    }
     private int id;
     protected float valor;
     private String descricao;
